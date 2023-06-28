@@ -23,6 +23,7 @@
   "scripts": {
     "start": "rm -rfv node_modules/.cache/* && craco start",
     "build": "craco build",
+    "buildTemplate": "craco build --template",
     "eject": "craco eject",
     "test": "jest --config jestconfig.json --passWithNoTests",
     "format": "prettier --write \"src/**/*.ts\"",

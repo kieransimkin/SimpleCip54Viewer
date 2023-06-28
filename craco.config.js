@@ -3,6 +3,10 @@ var InlineChunkHtmlPlugin = require('inline-chunk-html-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HTMLInlineCSSWebpackPlugin = require("html-inline-css-webpack-plugin").default;
 var path = require('path');
+var minimist =require('minimist');
+const webpack = require('webpack');
+var argv = minimist(process.argv.slice(2));
+const isTemplate = argv?.template ? true:false
 module.exports = {
     webpack: {
         output: {
@@ -11,28 +15,32 @@ module.exports = {
             sourceMapFilename: '[name].[hash:8].map',
             chunkFilename: '[id].[hash:8].js'
           },
+          
         plugins: [
-            // Generates an `index.html` file with the <script> injected.
-            
-            // Inlines chunks with `runtime` in the name
-        //new HTMLInlineCSSWebpackPlugin(),
+        new webpack.NormalModuleReplacementPlugin(
+          /(.*)smartImport.json$/,
+          function (resource) {
+            resource.request = resource.request.replace(
+              /smartImport.json/,
+              isTemplate?`smartImportTemplate.json`:'smartImport.json'
+            );
+          }
+        ),
+        new webpack.NormalModuleReplacementPlugin(
+          /(.*)metadata.json$/,
+          function (resource) {
+            resource.request = resource.request.replace(
+              /metadata.json/,
+              isTemplate?`metadataTemplate.json`:'metadata.json'
+            );
+          }
+        ),
         new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/\.js$/]),
         
             // ...
           ],
-          module: {
-            rules: [
-              {
-                test: /\.css$/,
-                use: [
-                  MiniCssExtractPlugin.loader,
-                  "css-loader"
-                ]
-              }
-            ]
-          },
       configure: (webpackConfig, { env, paths }) => {
-        
+        paths.appBuild = webpackConfig.output.path = path.resolve(isTemplate?'template':'build');
         return webpackConfig;
       },
     },
