@@ -1,6 +1,6 @@
 # Simple CIP54 Viewer
 
-This is part of the [https://cips.cardano.org/cips/cip54](CIP54) Smart NFT toolset. For further details on Smart NFTs, check out the [Smart NFT Playground](https://nft-playground.dev/).
+This is part of the [CIP54](https://cips.cardano.org/cips/cip54) Smart NFT toolset. For further details on Smart NFTs, check out the [Smart NFT Playground](https://nft-playground.dev/).
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). The idea is to provide the most simple possible interface to render a Smart NFT.
 This is used as a test harness for [Smart NFT Portal](https://github.com/kieransimkin/SmartNFTPortal), which is the react component responsible for rendering Smart NFTs. It is also used in [SmartNFTThumbnailer](https://github.com/kieransimkin/SmartNFTThumbnailer) to generate the static HTML which is rendered in chrome-headless. 
